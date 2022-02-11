@@ -3,6 +3,7 @@ class userController {
   // 用户登录
   async login(req, res, next) {
     try {
+      a++;
       res.send('用户登录')
     } catch (err) {
       next(err)
