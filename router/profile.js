@@ -1,6 +1,6 @@
 const express = require('express')
 
-const profileController = require('../controller/profile')
+const profileController = require('../controller/profileController')
 
 const router = express.Router()
 
