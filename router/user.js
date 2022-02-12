@@ -7,7 +7,7 @@ const router = express.Router()
 
 
 // 用户登录
-router.post('/users/login', userController.login)
+router.post('/users/login', userValidate.login, userController.login)
 
 // 用户注册
 router.post('/users', userValidate.register, userController.register)

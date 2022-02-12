@@ -1,11 +1,27 @@
 const { User } = require('../model/index')
 
+const jwt = require('../util/jwt')
+const { jwtSecret } = require('../config/config.default')
+
 class userController {
 
   // 用户登录
   async login(req, res, next) {
     try {
-      res.send('用户登录')
+      // 1. 数据验证
+      // 2. 生成token
+      const user = req.user.toJSON()
+
+      const token = await jwt.sign({
+        userId: user._id    // 生成token不需要全部user信息，只要_id即可
+      }, jwtSecret)
+
+      // 3. 发送成功响应(包含token的用户信息)
+      delete user.password
+      res.status(200).json({
+        ...user,
+        token
+      })
     } catch (err) {
       next(err)
     }
