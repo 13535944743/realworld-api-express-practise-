@@ -5,6 +5,8 @@ const cors = require('cors');
 const router = require('./router')  // 引入路由级别中间件
 const errorHandler = require('./middleware/error-handler')
 
+require('./model')
+
 const app = express()
 
 // 日志输出
