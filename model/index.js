@@ -19,6 +19,6 @@ db.once('open', function () {
 
 // 组织导出模型类
 module.exports = {
-  User: mongoose.model('user', require('./user')),
-  Article: mongoose.model('article', require('./article'))
+  User: mongoose.model('User', require('./user')),
+  Article: mongoose.model('Article', require('./article'))
 }

@@ -1,3 +1,5 @@
+const { Article } = require('../model/index')
+
 class articleController {
 
   // 获取所有文章(可增加条件筛选)
@@ -30,7 +32,15 @@ class articleController {
   // 新增文章
   async createArticle(req, res, next) {
     try {
-      res.send('新增文章')
+      const article = new Article(req.body.article)
+
+      article.author = req.user._id     // 作者在数据库中只存一个用户id，通过id去获取用户
+      // article.populate('author').execPopulate()     // 简单来说，就是通过这一行以及文章模型中的ref: 'User'，可以通过id把用户信息放到author中
+
+      await article.save()
+      res.status(201).json({
+        article
+      })
     } catch (err) {
       next(err)
     }

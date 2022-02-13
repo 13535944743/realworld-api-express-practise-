@@ -1,8 +1,5 @@
 const validate = require("../middleware/validate")
-const {
-  body,
-  validationResult
-} = require("express-validator")
+const { body } = require("express-validator")
 
 const {
   User
@@ -40,6 +37,7 @@ exports.login = [
       const user = await User.findOne({
         email
       }).select(["password", 'username', 'email', 'bio', 'image'])    // 这里需要获取密码的话，因为用户密码的模式设计那里设置了select: false，即通过查找不能查到密码，此时需要通过select()实现能查出密码
+
       if (!user) {
         return Promise.reject("用户不存在")
       }

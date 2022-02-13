@@ -1,6 +1,8 @@
 const express = require('express')
 
 const articleController = require('../controller/articleController')
+const authorization = require('../middleware/authorization')
+const articleValidate = require('../validate/article')
 
 const router = express.Router()
 
@@ -14,7 +16,7 @@ router.get('/feed', articleController.feedArticles)
 router.get('/:slug', articleController.getArticle)   // slug类似id，用于确定特定文章
 
 // 新增文章
-router.post('/', articleController.createArticle)
+router.post('/', authorization, articleValidate.createArticle, articleController.createArticle)
 
 // 更新文章
 router.put('/:slug', articleController.updateArticle)

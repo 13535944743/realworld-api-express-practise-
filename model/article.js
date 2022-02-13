@@ -2,36 +2,35 @@ const mongoose = require('mongoose')
 
 const baseModel = require('./base-model')
 
+const Schema = mongoose.Schema
+
 // 创建文章模型
 const articleSchema = mongoose.Schema({
   ...baseModel,
-  username: {
+  title: {
     type: String,
     required: true
   },
-  email: {
+  description: {
     type: String,
     required: true
   },
-  password: {
+  body: {
     type: String,
     required: true
   },
-  bio: {
-    type: String,
+  tagList: {
+    type: [String],
     default: null
   },
-  image: {
-    type: String,
-    default: null
+  favoritesCount: {
+    type: Number,
+    default: 0
   },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',   // 存用户id，之后映射到用户模型去
+    required: true
   }
 })
 

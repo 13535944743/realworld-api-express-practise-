@@ -14,7 +14,9 @@ class userController {
 
       const token = await jwt.sign({
         userId: user._id    // 生成token不需要全部user信息，只要_id即可
-      }, jwtSecret)
+      }, jwtSecret, {
+        expiresIn: 60 * 60 * 24     // JWT过期时间，默认单位是秒
+      })
 
       // 3. 发送成功响应(包含token的用户信息)
       delete user.password
@@ -48,7 +50,9 @@ class userController {
   // 获取当前用户
   async getCurrentUser(req, res, next) {
     try {
-      res.send('获取当前用户')
+      res.status(200).json({
+        user: req.user      // 登录验证时已经把user信息挂载到req上了
+      })
     } catch (err) {
       next(err)
     }
