@@ -13,16 +13,16 @@ router.get('/', articleController.listArticles)
 router.get('/feed', articleController.feedArticles)
 
 // 获取单篇文章
-router.get('/:slug', articleController.getArticle)   // slug类似id，用于确定特定文章
+router.get('/:slug', articleValidate.getArticle, articleController.getArticle)   // slug类似id，用于确定特定文章
 
 // 新增文章
 router.post('/', authorization, articleValidate.createArticle, articleController.createArticle)
 
 // 更新文章
-router.put('/:slug', articleController.updateArticle)
+router.put('/:slug', authorization, articleValidate.updateArticle, articleController.updateArticle)
 
 // 删除文章
-router.delete('/:slug', articleController.deleteArticle)
+router.delete('/:slug', authorization, articleValidate.deleteArticle, articleController.deleteArticle)
 
 // 增加一篇文章的评论
 router.post('/:slug/comments', articleController.addComments)
